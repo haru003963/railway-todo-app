@@ -18,7 +18,7 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState();
   // const [cookies, setCookie, removeCookie] = useCookies();
-  const [, setCookie] = useCookies();
+  const [, setCookie] = useCookies(); //順番大事
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handleNameChange = (e) => setName(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
