@@ -7,7 +7,7 @@ import { signIn } from "../authSlice";
 import { url } from "../const";
 import { Header } from "../components/Header";
 import { Navigate } from "react-router-dom";
-import "./signin.css";
+import "./signin.scss";
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +21,8 @@ export const SignIn = () => {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [, setCookie] = useCookies();
+  //const [setCookie] = useCookies();
 
   const onSignIn = () => {
     axios

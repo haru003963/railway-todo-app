@@ -3,16 +3,16 @@
 .edit-task {
   width: 1000px;
   margin: 0 auto;
-}
 
-.edit-task-form {
-  color: #555555;
-}
+  &-form {
+    color: #555555;
 
-.edit-task-title,
-.edit-task-detail {
-  width: 300px;
-  margin-bottom: 25px;
+    &-title,
+    &-detail {
+      width: 300px;
+      margin-bottom: 25px;
+    }
+  }
 }
 
 .delete-task-button {

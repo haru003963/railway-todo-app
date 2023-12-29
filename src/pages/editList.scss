@@ -3,15 +3,15 @@
 .edit-list {
   width: 1000px;
   margin: 0 auto;
-}
 
-.edit-list-form {
-  color: #555555;
-}
+  &-form {
+    color: #555555;
 
-.edit-list-title {
-  width: 300px;
-  margin-bottom: 25px;
+    &-title {
+      width: 300px;
+      margin-bottom: 25px;
+    }
+  }
 }
 
 .delete-list-button {

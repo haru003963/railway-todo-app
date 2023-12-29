@@ -1,18 +1,18 @@
 import React from "react";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { signOut } from "../authSlice";
-import "./header.css";
+import "./header.scss";
 
 export const Header = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
-  const [cookies, setCookie, removeCookie] = useCookies();
+  // const [cookies, setCookie, removeCookie] = useCookies();
   const handleSignOut = () => {
     dispatch(signOut());
-    removeCookie("token");
+    // removeCookie("token");
     navigate("/signin"); // Use navigate instead of history.push
   };
 

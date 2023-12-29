@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { signIn } from "../authSlice";
 import { Header } from "../components/Header";
 import { url } from "../const";
-import "./signUp.css";
+import "./signUp.scss";
 import { Navigate } from "react-router-dom";
 
 export const SignUp = () => {
@@ -17,7 +17,8 @@ export const SignUp = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState();
-  const [cookies, setCookie, removeCookie] = useCookies();
+  // const [cookies, setCookie, removeCookie] = useCookies();
+  const [, setCookie] = useCookies();
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handleNameChange = (e) => setName(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
