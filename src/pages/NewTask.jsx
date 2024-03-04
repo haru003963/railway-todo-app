@@ -5,6 +5,7 @@ import { url } from "../const";
 import { Header } from "../components/Header";
 import "./newTask.scss";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+// import * as dayjs from "dayjs";
 
 export const NewTask = () => {
   const [selectListId, setSelectListId] = useState();
@@ -13,15 +14,23 @@ export const NewTask = () => {
   const [detail, setDetail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [cookies] = useCookies();
+
+  //期日日時のstateを追加
+  const [dueDate, setDueDate] = useState(new Date());
+  // const [dueDate, setDueDate] = useState(dayjs().format("YYYY-MM-DD HH:mm"));
+  const handleDueDateChange = (e) => setDueDate(e.target.value);
+
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleSelectList = (id) => setSelectListId(id);
+
   const onCreateTask = () => {
     const data = {
       title: title,
       detail: detail,
       done: false,
+      limit: dueDate, // 期限をdataに追加
     };
 
     axios
@@ -80,6 +89,14 @@ export const NewTask = () => {
             type="text"
             onChange={handleTitleChange}
             className="new-task-title"
+          />
+          <br />
+          <label>期限</label>
+          <br />
+          <input
+            type="datetime-local"
+            value={dueDate}
+            onChange={handleDueDateChange}
           />
           <br />
           <label>詳細</label>
