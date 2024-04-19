@@ -5,7 +5,7 @@ import { url } from "../const";
 import { Header } from "../components/Header";
 import "./newTask.scss";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-// import * as dayjs from "dayjs";
+import * as dayjs from "dayjs";
 
 export const NewTask = () => {
   const [selectListId, setSelectListId] = useState();
@@ -16,8 +16,8 @@ export const NewTask = () => {
   const [cookies] = useCookies();
 
   //期日日時のstateを追加
-  const [dueDate, setDueDate] = useState(new Date());
-  // const [dueDate, setDueDate] = useState(dayjs().format("YYYY-MM-DD HH:mm"));
+  //const [dueDate, setDueDate] = useState(new Date());
+  const [dueDate, setDueDate] = useState(dayjs().format("YYYY-MM-DD HH:mm"));
   const handleDueDateChange = (e) => setDueDate(e.target.value);
 
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
@@ -30,7 +30,7 @@ export const NewTask = () => {
       title: title,
       detail: detail,
       done: false,
-      limit: dueDate, // 期限をdataに追加
+      limit: dayjs(dueDate).format("YYYY-MM-DDTHH:mm:ssZ"), // 期限をdataに追加
     };
 
     axios
@@ -63,6 +63,7 @@ export const NewTask = () => {
       });
   }, []);
 
+  console.log(dueDate);
   return (
     <div>
       <Header />

@@ -73,4 +73,34 @@
       width: 100%;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    /* 768px以下に適用されるCSS（タブレット用） */
+    .taskList {
+      width: 90%;
+      margin: 20px auto;
+    }
+
+    .taskList-tab {
+      &-item {
+        width: 80px;
+        padding: 0 15px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    /* 320px以下に適用されるCSS（スマホ用） */
+    .taskList {
+      width: 100%;
+      margin: 10px auto;
+    }
+
+    .taskList-tab {
+      &-item {
+        width: 60px;
+        padding: 0 10px;
+      }
+    }
+  }
 }

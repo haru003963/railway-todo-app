@@ -13,3 +13,30 @@
   color: #ffffff;
   margin: auto 25px auto auto;
 }
+
+/* PC用のCSSはメディアクエリの外に記述する */
+
+@media screen and (max-width: 768px) {
+  /* 768px以下に適用されるCSS（タブレット用） */
+  .header {
+    height: 60px;
+    padding: 10px;
+  }
+
+  .sign-out-button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  /* 320px以下に適用されるCSS（スマホ用） */
+  .header {
+    height: 50px;
+    padding: 5px;
+    justify-content: center;
+  }
+
+  .sign-out-button {
+    display: none;
+  }
+}

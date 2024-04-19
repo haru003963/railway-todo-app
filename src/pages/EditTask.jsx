@@ -15,8 +15,9 @@ export const EditTask = () => {
   const [detail, setDetail] = useState("");
   const [isDone, setIsDone] = useState();
   const [errorMessage, setErrorMessage] = useState("");
-
-  const [deadline, setDeadline] = useState(new Date()); // 期日日時のstateを追加
+  //APIから取得した期限の情報を入れるstate（フォーマットはnew Date）
+  const [deadline, setDeadline] = useState(new Date());
+  //期限を表示するときのstate（フォーマットはdayjs）
   const [formattedDeadline, setFormattedDeadline] = useState(
     dayjs().format("YYYY-MM-DD HH:MM")
   );
@@ -24,13 +25,14 @@ export const EditTask = () => {
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleIsDoneChange = (e) => setIsDone(e.target.value === "done");
+
+  //期限の値が変更されたらその値のフォーマットを整えてstateに入れる
   const handleDeadlineChange = (e) => {
-    //APIから取得した期日の情報を入れるstate
     setDeadline(new Date(e.target.value));
-    //期日を表示するときのstate
     setFormattedDeadline(dayjs(e.target.value).format("YYYY-MM-DD HH:MM"));
-    //どっちのstateも適切に更新されてるかとリクエストが送信されてるか確認
-  }; // 期日日時のstateを追加
+  };
+
+  //更新した時に動く処理
   const onUpdateTask = () => {
     console.log(isDone);
     const data = {
@@ -70,6 +72,7 @@ export const EditTask = () => {
       });
   };
 
+  //サーバーから情報を受け取る処理
   useEffect(() => {
     axios
       .get(`${url}/lists/${listId}/tasks/${taskId}`, {
@@ -82,14 +85,20 @@ export const EditTask = () => {
         setTitle(task.title);
         setDetail(task.detail);
         setIsDone(task.done);
-        // setDeadline(new Date(task.limit));
-        setDeadline(dayjs(task.limit).format("YYYY-MM-DDTHH:MM:SSZ")); // APIから取得した期日の情報を設定
+        setDeadline(new Date(task.limit));
+        // setDeadline(dayjs(task.limit).format("YYYY-MM-DDTHH:MM:SSZ"));
         console.log(deadline);
       })
       .catch((err) => {
         setErrorMessage(`タスク情報の取得に失敗しました。${err}`);
       });
   }, []);
+
+  //deadlineが変更された時に、setFormattedDeadlineにdeadlineの値を入れる
+  useEffect(() => {
+    setFormattedDeadline(dayjs(deadline).format("YYYY-MM-DD HH:MM"));
+    console.log(formattedDeadline);
+  }, [deadline]);
 
   return (
     <div>

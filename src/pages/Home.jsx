@@ -5,6 +5,7 @@ import axios from "axios";
 import { Header } from "../components/Header";
 import { url } from "../const";
 import "./home.scss";
+import * as dayjs from "dayjs";
 
 export const Home = () => {
   const [isDoneDisplay, setIsDoneDisplay] = useState("todo"); // todo->未完了 done->完了
@@ -13,7 +14,9 @@ export const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [cookies] = useCookies();
+
   const handleIsDoneDisplayChange = (e) => setIsDoneDisplay(e.target.value);
+
   useEffect(() => {
     axios
       .get(`${url}/lists`, {
@@ -63,6 +66,13 @@ export const Home = () => {
         setErrorMessage(`タスクの取得に失敗しました。${err}`);
       });
   };
+
+  const handleListKeyPress = (e, id) => {
+    if (e.key === "Enter") {
+      handleSelectList(id);
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -90,6 +100,8 @@ export const Home = () => {
                   key={key}
                   className={`list-tab-item ${isActive ? "active" : ""}`}
                   onClick={() => handleSelectList(list.id)}
+                  onKeyDown={(e) => handleListKeyPress(e, list.id)}
+                  tabIndex={0}
                 >
                   {list.title}
                 </li>
@@ -125,9 +137,11 @@ export const Home = () => {
 // 表示するタスク
 const Tasks = (props) => {
   const { tasks, selectListId, isDoneDisplay } = props;
+
   if (tasks === null) return <></>;
 
-  if (isDoneDisplay == "done") {
+  // task.doneがdoneだったら（完了）
+  if (isDoneDisplay === "done") {
     return (
       <ul>
         {tasks
@@ -143,6 +157,15 @@ const Tasks = (props) => {
                 {task.title}
                 <br />
                 {task.done ? "完了" : "未完了"}
+                <br />
+                {dayjs(task.limit).format("YYYY-MM-DD HH:MM")}
+                <br />
+                残り：
+                {(new Date(task.limit).getTime() - new Date().getTime()) /
+                  1000 /
+                  60 /
+                  60 /
+                  24}
               </Link>
             </li>
           ))}
@@ -150,6 +173,7 @@ const Tasks = (props) => {
     );
   }
 
+  // doneじゃなかったら（未完了）
   return (
     <ul>
       {tasks
@@ -165,6 +189,15 @@ const Tasks = (props) => {
               {task.title}
               <br />
               {task.done ? "完了" : "未完了"}
+              <br />
+              期限：{dayjs(task.limit).format("YYYY-MM-DD HH:MM")}
+              <br />
+              残り：
+              {(new Date(task.limit).getTime() - new Date().getTime()) /
+                1000 /
+                60 /
+                60 /
+                24}
             </Link>
           </li>
         ))}
