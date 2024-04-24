@@ -67,6 +67,7 @@ export const Home = () => {
       });
   };
 
+  //リストアイテムがフォーカスされた状態でEnterキーが押されたときに実行され、対応するリストが選択される
   const handleListKeyPress = (e, id) => {
     if (e.key === "Enter") {
       handleSelectList(id);
@@ -100,8 +101,8 @@ export const Home = () => {
                   key={key}
                   className={`list-tab-item ${isActive ? "active" : ""}`}
                   onClick={() => handleSelectList(list.id)}
-                  onKeyDown={(e) => handleListKeyPress(e, list.id)}
-                  tabIndex={0}
+                  onKeyDown={(e) => handleListKeyPress(e, list.id)} //第5回
+                  tabIndex={0} //第5回：キーボードでフォーカスを移動できるようにする
                 >
                   {list.title}
                 </li>

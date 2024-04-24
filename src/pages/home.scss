@@ -1,7 +1,7 @@
 .taskList {
   margin: 50px auto;
   list-style: none;
-  width: 1000px;
+  width: 100%;
 
   &-header {
     display: flex;
@@ -72,6 +72,11 @@
     &-select {
       width: 100%;
     }
+  }
+
+  h2 {
+    padding-top: 20px;
+    padding-bottom: 10px;
   }
 
   @media screen and (max-width: 768px) {
